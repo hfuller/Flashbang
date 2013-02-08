@@ -14,11 +14,6 @@ public class Flashbang extends JFrame {
     public Flashbang() {
     	setLayout(new BorderLayout());
         
-    	JPanel panel = new JPanel();
-    	getContentPane().add(panel,BorderLayout.PAGE_END);
-        
-        panel.setLayout(null);
-
 	    JButton quitButton = new JButton("Quit");
 	    quitButton.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) {
@@ -26,12 +21,19 @@ public class Flashbang extends JFrame {
 	       }
 	    });
 			    
-	    JButton tempButton1 = new JButton("Temp1");
+    	
+	    JPanel panel = new JPanel();
+    	panel.setLayout(new GridLayout(0,2));
+    	
+    	JButton tempButton1 = new JButton("Temp1");
+	    JButton tempButton2 = new JButton("Temp2");
+	    getContentPane().add(tempButton1,BorderLayout.PAGE_END);
+		getContentPane().add(tempButton2,BorderLayout.PAGE_START);
 		
-		//panel.add(quitButton);
-		    
-		getContentPane().add(quitButton,BorderLayout.PAGE_END);
+		getContentPane().add(panel,BorderLayout.PAGE_END);
+    	getContentPane().add(quitButton,BorderLayout.PAGE_END);
 		
+    	
 		setTitle("Simple example");
 		setSize(600, 400);
 		setLocationRelativeTo(null);
