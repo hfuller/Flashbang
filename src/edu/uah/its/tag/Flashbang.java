@@ -1,11 +1,14 @@
 package edu.uah.its.tag;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -22,15 +25,25 @@ public class Flashbang extends JFrame {
 	    });
 			    
     	
-	    JPanel panel = new JPanel();
-    	panel.setLayout(new GridLayout(0,2));
+	    JPanel selectorsPanel = new JPanel();
+	    selectorsPanel.setLayout(new GridLayout(0,2));
+	    
+	    JPanel repoSelectorPanel = new JPanel();
+	    repoSelectorPanel.setLayout(new BorderLayout());
+	    repoSelectorPanel.add(new JLabel("Repositories:"),BorderLayout.NORTH);
+	    String[] testData = {"one","two","three"};
+	    JList repoList = new JList(testData);
+	    repoSelectorPanel.add(repoList,BorderLayout.CENTER);
+	    selectorsPanel.add(repoSelectorPanel);
+    		    
+	    JPanel driveSelectorPanel = new JPanel();
+	    driveSelectorPanel.setLayout(new BorderLayout());
+	    driveSelectorPanel.add(new JLabel("Drives:"),BorderLayout.NORTH);
+	    JList flashDriveList = new JList(new FlashDriveListModel());
+	    driveSelectorPanel.add(flashDriveList,BorderLayout.CENTER);
+	    selectorsPanel.add(driveSelectorPanel);
     	
-    	JButton tempButton1 = new JButton("Temp1");
-	    JButton tempButton2 = new JButton("Temp2");
-	    getContentPane().add(tempButton1,BorderLayout.PAGE_END);
-		getContentPane().add(tempButton2,BorderLayout.PAGE_START);
-		
-		getContentPane().add(panel,BorderLayout.PAGE_END);
+    	getContentPane().add(selectorsPanel,BorderLayout.CENTER);
     	getContentPane().add(quitButton,BorderLayout.PAGE_END);
 		
     	
