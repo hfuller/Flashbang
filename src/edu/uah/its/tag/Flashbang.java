@@ -14,7 +14,12 @@ import javax.swing.SwingUtilities;
 
 public class Flashbang extends JFrame {
 
-    public Flashbang() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 399258204214611992L;
+
+	public Flashbang() {
     	setLayout(new BorderLayout());
         
 	    JButton quitButton = new JButton("Quit");

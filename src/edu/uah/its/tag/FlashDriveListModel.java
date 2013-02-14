@@ -8,6 +8,10 @@ import javax.swing.filechooser.FileSystemView;
 
 public class FlashDriveListModel extends AbstractListModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7680687955346728878L;
 	private ArrayList flashDrives;
 	
 	public FlashDriveListModel() {
@@ -18,7 +22,6 @@ public class FlashDriveListModel extends AbstractListModel {
 	public void refresh() {
 		// TODO Auto-generated method stub
 		FileSystemView fsv = FileSystemView.getFileSystemView();
-		File[] roots = fsv.getRoots();
 		File[] f = File.listRoots();
 		for (int i = 0; i < f.length; i++) {
 			if ((Boolean)(fsv.getSystemTypeDescription(f[i]).toLowerCase().contains("removable"))) {
