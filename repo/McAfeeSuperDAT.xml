@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository name="McAfeeSuperDAT">
+	<description>McAfee SuperDAT update files</description>
+	<type>scraper</type>
+	<url>http://update.nai.com/products/licensed/superdat/english/intel/
+	</url>
+	<regex>&lt;a href=&quot;sdat(.+\.exe)&quot;&gt;</regex>
+	<prefix>http://update.nai.com/products/licensed/superdat/english/intel/
+	</prefix>
+</repository>
