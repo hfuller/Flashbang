@@ -2,13 +2,17 @@ package edu.uah.its.tag;
 
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 public class ProgressWindow extends JFrame {
 	
+	private final static Logger logger = Logger.getLogger(PeriodicReloaderThread.class .getName());
+		
 	private JProgressBar progressBar;
 	
 	public ProgressWindow() {
@@ -40,5 +44,46 @@ public class ProgressWindow extends JFrame {
 		if ( !this.isVisible() ) this.setVisible(true);
 	
     }
+	
+	public void setProgress(final int p) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	progressBar.setValue(p);
+            	ProgressWindow.this.setVisible(true);
+            }
+		});
+	}
+	public void setDescription(final String d) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	progressBar.setString(d);
+            }
+		});
+	}
+	public void setProgress(int p, String d) {
+		this.setProgress(p); this.setDescription(d);
+	}
+	public void setVisible(final boolean b) {
+		logger.finer("setVisible " + b);
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	ProgressWindow.super.setVisible(b);
+            }
+		});
+	}
+//	public void setVisible(final boolean b) {
+//		logger.finer("setVisible " + b);
+//		SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//				if (b) {
+//					ProgressWindow.super.setVisible(b);
+//					ProgressWindow.this.setAlwaysOnTop(b);
+//				} else {
+//					ProgressWindow.this.setAlwaysOnTop(b);
+//					ProgressWindow.super.setVisible(b);
+//				}
+//            }
+//		});
+//	}
 
 }

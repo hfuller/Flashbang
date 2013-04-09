@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,8 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import components.ProgressBarDemo.Task;
 
 public class Flashbang extends JFrame {
 
@@ -33,6 +33,10 @@ public class Flashbang extends JFrame {
         handler.setLevel(Level.ALL);
         logger.addHandler(handler);
         logger.finer("Created logger " + this.getClass().getPackage().getName());
+        
+        //prepare progress window
+        final ProgressWindow progressWindow = new ProgressWindow();
+        progressWindow.setProgress(10,"Initializing application");
 		
 		setLayout(new BorderLayout());
         
@@ -50,7 +54,7 @@ public class Flashbang extends JFrame {
 	    JPanel repoSelectorPanel = new JPanel();
 	    repoSelectorPanel.setLayout(new BorderLayout());
 	    repoSelectorPanel.add(new JLabel("Repositories:"),BorderLayout.NORTH);
-	    RepositoryListModel repoListModel = new RepositoryListModel();
+	    final RepositoryListModel repoListModel = new RepositoryListModel();
 	    //reloader thread
 	    //(new Thread(new PeriodicReloaderThread(repoListModel,3))).start();
 	    JList repoList = new JList(repoListModel);
@@ -60,12 +64,15 @@ public class Flashbang extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				SwingUtilities.invokeLater(new Runnable() {
 		            public void run() {
-		            	ProgressWindow x = new ProgressWindow();
-		                x.setVisible(true);
+		            	progressWindow.setProgress(0,"Updating repositories");
 		            }
 		        });
-				task = new RepositoryUpdaterTask(repoList.get(0));
-		        task.addPropertyChangeListener(this);
+				RepositoryUpdaterTask task = new RepositoryUpdaterTask(repoListModel.getElementAt(0));
+		        task.addPropertyChangeListener(new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent arg0) {
+						
+					}
+		        });
 		        task.execute();
 			}
 	    });
@@ -95,6 +102,8 @@ public class Flashbang extends JFrame {
 		setSize(600, 400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		progressWindow.setVisible(false);
     }
 
     public static void main(String[] args) {

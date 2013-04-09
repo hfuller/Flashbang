@@ -45,7 +45,7 @@ public class RepositoryListModel extends AbstractListModel implements Refreshabl
 	}
 
 	@Override
-	public Object getElementAt(int arg0) {
+	public Repository getElementAt(int arg0) {
 		// TODO Auto-generated method stub
 		return repos.get(arg0);
 	}
