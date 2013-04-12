@@ -14,6 +14,7 @@ public class ProgressWindow extends JFrame {
 	private final static Logger logger = Logger.getLogger(PeriodicReloaderThread.class .getName());
 		
 	private JProgressBar progressBar;
+	private int progress; private String description; private boolean visible;
 	
 	public ProgressWindow() {
 		
@@ -35,9 +36,9 @@ public class ProgressWindow extends JFrame {
 	public void propertyChange(PropertyChangeEvent evt) {
         if ("progress" == evt.getPropertyName()) {
             int progress = (Integer) evt.getNewValue();
-            progressBar.setValue(progress);
+            this.setProgress(progress);
         } else if ( "description" == evt.getPropertyName() ) {
-        	progressBar.setString((String) evt.getNewValue());
+        	this.setDescription((String) evt.getNewValue());
         }
         
     	//now show us in case we are hidden
@@ -45,31 +46,32 @@ public class ProgressWindow extends JFrame {
 	
     }
 	
-	public void setProgress(final int p) {
+	private void updateBar() {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-            	progressBar.setValue(p);
-            	ProgressWindow.this.setVisible(true);
+            	progressBar.setValue(progress);
+				progressBar.setString(description);
+				ProgressWindow.super.setVisible(visible);
             }
 		});
 	}
+	
+	public void setProgress(final int p) {
+		progress = p;
+		visible = true;
+		this.updateBar();
+	}
 	public void setDescription(final String d) {
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	progressBar.setString(d);
-            }
-		});
+		description = d;
+		this.updateBar();
 	}
 	public void setProgress(int p, String d) {
 		this.setProgress(p); this.setDescription(d);
 	}
 	public void setVisible(final boolean b) {
 		logger.finer("setVisible " + b);
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	ProgressWindow.super.setVisible(b);
-            }
-		});
+		visible = b;
+		this.updateBar();
 	}
 //	public void setVisible(final boolean b) {
 //		logger.finer("setVisible " + b);
