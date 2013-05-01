@@ -12,7 +12,7 @@ public class RepositoryUpdaterTask extends SwingWorker<Void, Void> {
 	
 	private Repository repo;
 	
-	private final static Logger logger = Logger.getLogger(PeriodicReloaderThread.class .getName());
+	private final static Logger logger = Logger.getLogger(RepositoryUpdaterTask.class .getName());
 	
 	public RepositoryUpdaterTask(Repository r) {
 		repo = r;

@@ -67,7 +67,9 @@ public class Flashbang extends JFrame {
 		            	progressWindow.setProgress(0,"Updating repositories");
 		            }
 		        });
-				RepositoryUpdaterTask task = new RepositoryUpdaterTask(repoListModel.getElementAt(0));
+				
+				//RepositoryUpdaterTask task = new RepositoryUpdaterTask(repoListModel.getElementAt(0));
+				RepositoryListUpdaterTask task = new RepositoryListUpdaterTask(repoListModel);
 		        task.addPropertyChangeListener(new PropertyChangeListener() {
 					public void propertyChange(PropertyChangeEvent arg0) {
 						
