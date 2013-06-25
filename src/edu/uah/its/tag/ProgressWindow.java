@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 
 public class ProgressWindow extends JFrame {
 	
-	private final static Logger logger = Logger.getLogger(PeriodicReloaderThread.class .getName());
+	private final static Logger logger = Logger.getLogger(ProgressWindow.class .getName());
 		
 	private JProgressBar progressBar;
 	private int progress; private String description; private boolean visible;
